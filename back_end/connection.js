@@ -18,18 +18,4 @@ mysqlConnection.connect((err)=>{
     }
 });
 
-// const str = "select * from `tbl_profile` where pID = ?; select * from `tbl_education` where pID = ?";
-
-// mysqlConnection.query(str, [1, 1], function(err, results) {
-//     if (err) throw err;
-  
-//     // `results` is an array with one element for every statement in the query:
-//     console.log(results[0]); // [{1: 1}]
-//     console.log(results[1]); // [{2: 2}]
-//     console.log(typeof results);
-//     console.log(typeof results[0]);
-//     console.log(results);
-//     console.log(typeof [1, 2, 3]);
-//   });
-
 module.exports = mysqlConnection;
