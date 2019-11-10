@@ -1,2 +1,6 @@
 hahha.
+<<<<<<< HEAD
 more.......
+=======
+more.......
+>>>>>>> 2bfd99c9da10ad0a127a33c47f0c50a256db8a1d
