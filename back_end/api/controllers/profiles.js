@@ -10,7 +10,7 @@ module.exports.getOneProfile = (req, res)=>{
     query_str += `select start_year, start_month, end_year, end_month, degree, major, university from tbl_education where pID = ${pID};`;
     query_str += `select start_year, start_month, end_year, end_month, wplace_name, address, position, department from tbl_work where pID = ${pID};`;
     query_str += `select name from tbl_research where pID = ${pID};`;
-    query_str += `select role, title, journal, year, authors, type, 'issn/isbn', note, url_proof from view_profile_publication where pID = ${pID};`;
+    query_str += `select role, title, journal, year, authors, type, issn_isbn, note, url_proof from view_profile_publication where pID = ${pID};`;
     query_str += `select start_year, start_month, end_year, end_month, proj_name, sponsor, refID from view_profile_project where pID = ${pID}`;
     mysqlConnection.query(query_str, (err, rows, fields)=>{
         if(!err){
