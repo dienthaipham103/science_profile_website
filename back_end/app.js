@@ -3,8 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 
-// const productsRouter = require('./api/routes/products');
-// const ordersRouter = require('./api/routes/orders');
+
 const usersRouter = require('./api/routes/users');
 const profileRouter = require('./api/routes/profiles');
 
