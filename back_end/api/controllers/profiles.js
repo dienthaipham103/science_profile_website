@@ -39,3 +39,30 @@ function obj_str (arr){
     }
     return new_arr;
 }
+
+module.exports.updatePersonalInfo = (req, res)=>{
+    const pID = req.params.pID;
+    const updateFields = req.body;
+    
+    // create a query statement
+    let str = 'update tbl_profile set ';
+    for(let key in updateFields){
+        if(updateFields.hasOwnProperty(key)){
+            str += key + ' = ' + '"' + updateFields[key] + '"' + ', ';
+        }
+    };
+    let query_str = str.slice(0, -2) + ' where pID = ' + '"' + pID + '"';
+
+    // query to mySQL
+    mysqlConnection.query(query_str, (err, rows)=>{
+        if(!err){
+            console.log("Update successfully!");
+            res.json({
+                message: "Update successfully"
+            })
+        }
+        else{
+            console.log(err);
+        }
+    })
+}
