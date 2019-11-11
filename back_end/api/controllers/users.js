@@ -6,7 +6,7 @@ const mysqlConnection = require('../../connection');
 const config = require('../../config');
 
 module.exports.signUp = (req, res)=>{
-    const email = req.body.email;
+    const email_st = req.body.email_st;
     const password = req.body.password;
     const last_key_used = crypto.randomBytes(20).toString('hex');
     bcrypt.hash(password, config.SALT_ROUNDS, (err, hash)=>{
@@ -16,8 +16,8 @@ module.exports.signUp = (req, res)=>{
             });
         }
         else{
-            mysqlConnection.query('insert into users(`email`, `hash`, `last_key_used`) values(?, ?, ?)', 
-            [email, hash, last_key_used], (err, rows, fields)=>{
+            mysqlConnection.query('insert into tbl_profile(`email_st`, `hash`, `last_key_used`) values(?, ?, ?)', 
+            [email_st, hash, last_key_used], (err, rows, fields)=>{
                 if(!err){
                     res.json({
                         rows_param: rows
@@ -36,8 +36,8 @@ module.exports.signUp = (req, res)=>{
 };
 
 module.exports.deleteUser = (req, res)=>{
-    const userID = req.params.userID;//type: string
-    mysqlConnection.query('delete from users where userID = ?',[userID], (err, rows, fields)=>{
+    const pID = req.params.pID;//type: string
+    mysqlConnection.query('delete from tbl_profile where pID = ?',[pID], (err, rows, fields)=>{
         if(!err){
             res.json({
                 rows_param: rows
@@ -51,10 +51,10 @@ module.exports.deleteUser = (req, res)=>{
 };
 
 module.exports.logIn = (req, res)=>{
-    const email = req.body.email;
+    const email_st = req.body.email_st;
     const password = req.body.password;
-    console.log(email);
-    mysqlConnection.query('select * from users where email = ?',[email], (err, rows, fields)=>{
+    console.log(email_st);
+    mysqlConnection.query('select * from tbl_profile where email_st = ?',[email_st], (err, rows, fields)=>{
         if(!err){
             if(rows.length < 1){
                 return res.status(401).json({
@@ -68,7 +68,7 @@ module.exports.logIn = (req, res)=>{
                     })
                 }
                 if(result){
-                    const token = jwt.sign({userID: rows[0].userID, email: rows[0].email, last_key_used: rows[0].last_key_used},
+                    const token = jwt.sign({pID: rows[0].pID, email_st: rows[0].email_st, last_key_used: rows[0].last_key_used},
                     config.JWT_KEY,
                     {expiresIn: "4h"});
 
@@ -92,10 +92,10 @@ module.exports.logIn = (req, res)=>{
 };
 
 module.exports.logOut = (req, res)=>{
-    const userID = req.userData.userID;
+    const pID = req.userData.pID;
     const new_last_key_used = crypto.randomBytes(20).toString('hex');
-    mysqlConnection.query('update `users` set `last_key_used` = ? where `userID` = ?',
-    [new_last_key_used, userID], (err, rows, fields)=>{
+    mysqlConnection.query('update `tbl_profile` set `last_key_used` = ? where `pID` = ?',
+    [new_last_key_used, pID], (err, rows, fields)=>{
         if(!err){
             res.json({
                 rows_param: rows
@@ -109,8 +109,8 @@ module.exports.logOut = (req, res)=>{
 };
 
 module.exports.changePassWord = (req, res)=>{
-    const userID = req.userData.userID;
-    console.log(userID);
+    const pID = req.userData.pID;
+    console.log(pID);
     console.log("hh" + req.userData.hash);
     const new_last_key_used = crypto.randomBytes(20).toString('hex');
     bcrypt.compare(req.body.old_passWord, req.userData.hash, (err, result)=>{
@@ -127,8 +127,8 @@ module.exports.changePassWord = (req, res)=>{
                     });
                 }
                 else{
-                    mysqlConnection.query('update `users` set `last_key_used` = ?, `hash` = ? where `userID` = ?',
-                                        [new_last_key_used, hash, userID], (err, rows, fields)=>{
+                    mysqlConnection.query('update `tbl_profile` set `last_key_used` = ?, `hash` = ? where `pID` = ?',
+                                        [new_last_key_used, hash, pID], (err, rows, fields)=>{
                         if(!err){
                             console.log('Change password successful!');
                             return res.json({

@@ -1,7 +1,7 @@
 module.exports = (req, res, next)=>{
-    const pID = parseInt(req.params.pID);
-    const userID = req.userData.userID;
-    if(userID === pID || userID === 1){
+    const target_pID = parseInt(req.params.pID);
+    const pID = req.userData.pID;
+    if(pID === target_pID || pID === 1){
         next();
     }
     else{

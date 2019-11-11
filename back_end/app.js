@@ -10,8 +10,6 @@ const profileRouter = require('./api/routes/profiles');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-// app.use('/products', productsRouter);
-// app.use('/orders', ordersRouter);
 app.use('/users', usersRouter);
 app.use('/profiles', profileRouter);
 

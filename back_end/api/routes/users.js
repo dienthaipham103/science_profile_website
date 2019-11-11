@@ -9,7 +9,7 @@ const checkAdmin = require('../middlewares/checkAdmin');
 
 router.post('/signup', userControllers.signUp);
 
-router.delete('/:userID', checkToken, checkPayload, checkAdmin, userControllers.deleteUser);
+router.delete('/:pID', checkToken, checkPayload, checkAdmin, userControllers.deleteUser);
 
 router.post('/login', userControllers.logIn);
 

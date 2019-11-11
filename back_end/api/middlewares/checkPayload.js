@@ -1,10 +1,11 @@
 const mysqlConnection = require('../../connection');
 
 module.exports = (req, res, next) =>{
-    const email = req.userData.email;
+    const email_st = req.userData.email_st;
     const last_key_used = req.userData.last_key_used;
-    mysqlConnection.query('select * from users where email = ?',
-        [email], (err, rows, fields)=>{
+    console.log(req.userData);
+    mysqlConnection.query('select * from tbl_profile where email_st = ?',
+        [email_st], (err, rows, fields)=>{
             if(!err){
                 if(rows.length < 1){
                     return res.status(401).json({
