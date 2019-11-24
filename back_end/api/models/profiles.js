@@ -1,24 +1,40 @@
 class GetOneProfile{
-    constructor(pID, name, birthday, gender, title, cardID, email_st, email_nd, mobile, phone, fax,
-        language, education, work, research, publication, project){
-        this.pID = pID;
-        this.name = name;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.title = title;
-        this.cardID = cardID;
-        this.email_st = email_st;
-        this.email_nd = email_nd;
-        this.mobile = mobile;
-        this.phone = phone;
-        this.fax = fax;
-        this.language = language;
-        this.education = education;
-        this.work = work;
-        this.research = research;
-        this.publication = publication;
-        this.project = project;
-    }
+    constructor(){
+        this.personal_info = {};
+        this.language = [];
+        this.education = [];
+        this.work = [];
+        this.research = [];
+        this.publication = [];
+        this.project = [];
+    };
+
+    getValue(key, value){
+        switch(key){
+            case 'personal_info':
+                this.personal_info = value;
+                break;
+            case `language`:
+                this.language = value;
+                break;
+            case 'education':
+                this.education = value;
+                break;
+            case 'work':
+                this.work = value;
+                break;
+            case 'research':
+                this.research = value;
+                break;
+            case 'publication':
+                this.publication = value;
+                break;
+            case 'project':
+                this.project = value;
+                break;
+        }
+    };
+
 }
 
 module.exports = GetOneProfile;

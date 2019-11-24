@@ -9,6 +9,8 @@ const checkRole = require('../middlewares/checkRole');
 const checkAdmin = require('../middlewares/checkAdmin');
 
 router.get('/:pID', checkToken, checkPayload, profileControllers.getOneProfile);
-router.post('/:pID', checkToken, checkPayload, checkRole, profileControllers.updatePersonalInfo);
+router.post('/update/:pID', checkToken, checkPayload, checkRole, profileControllers.updatePersonalInfo);
+
+
 
 module.exports = router;
