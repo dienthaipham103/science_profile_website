@@ -9,6 +9,8 @@ const profileRouter = require('./api/routes/profiles');
 const educationRouter = require('./api/routes/educations');
 const languageRouter = require('./api/routes/languages');
 
+const authenticationRouter = require('./api/routes/authentications');
+
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
@@ -16,6 +18,8 @@ app.use('/users', usersRouter);
 app.use('/profiles', profileRouter);
 app.use('/educations', educationRouter);
 app.use('/languages', languageRouter);
+
+app.use('/authentications', authenticationRouter);
 
 app.use((req, res, next)=>{
     const error = new Error("Not found...");
