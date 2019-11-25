@@ -20,7 +20,7 @@ module.exports.signUp = (req, res)=>{
             [email_st, hash, last_key_used], (err, rows, fields)=>{
                 if(!err){
                     res.json({
-                        rows_param: rows
+                        authentication: true
                     });
                     console.log('Signup successfully!');
                 }

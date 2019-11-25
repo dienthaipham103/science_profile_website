@@ -7,6 +7,7 @@ const app = express();
 const usersRouter = require('./api/routes/users');
 const profileRouter = require('./api/routes/profiles');
 const educationRouter = require('./api/routes/educations');
+const languageRouter = require('./api/routes/languages');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/users', usersRouter);
 app.use('/profiles', profileRouter);
 app.use('/educations', educationRouter);
+app.use('/languages', languageRouter);
 
 app.use((req, res, next)=>{
     const error = new Error("Not found...");

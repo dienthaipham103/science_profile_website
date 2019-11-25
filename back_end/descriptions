@@ -1,0 +1,26 @@
+API:
+- users/signup
++ params: no
++ header: no
++ body:
+{
+    email_st
+    password
+}
++ res:
+{}
+
+- users/login
++ params: no
++ header: no
++ body:
+{
+    email_st
+    password
+}
++ res:
+{
+    token
+}
+
+- users/logout
