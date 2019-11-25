@@ -19,7 +19,7 @@ module.exports.signUp = (req, res)=>{
             mysqlConnection.query('insert into tbl_profile(`email_st`, `hash`, `last_key_used`) values(?, ?, ?)', 
             [email_st, hash, last_key_used], (err, rows, fields)=>{
                 if(!err){
-                    res.json({
+                    res.status(200).json({
                         authentication: true
                     });
                     console.log('Signup successfully!');
@@ -58,13 +58,13 @@ module.exports.logIn = (req, res)=>{
         if(!err){
             if(rows.length < 1){
                 return res.status(401).json({
-                    message: 'Auth fail1'
+                    message: 'Auth fail'
                 })
             }
             bcrypt.compare(password, rows[0].hash, (err, result)=>{
                 if(err){
                     return res.status(401).json({
-                        message: 'Auth fail2'
+                        message: 'Auth fail'
                     })
                 }
                 if(result){
@@ -73,12 +73,11 @@ module.exports.logIn = (req, res)=>{
                     {expiresIn: "4h"});
 
                     return res.status(200).json({
-                        message: 'Auth successful',
                         token: token
                     });
                 };
                 res.status(401).json({
-                    message: 'Auth fail3'
+                    message: 'Auth fail'
                 });
             });
         }
